@@ -4,7 +4,7 @@ const initBrowser = async () => {
   try {
     const browser = await puppeteer.launch({
       headless: true,
-      args: ['--disable-setuid-sandbox'],
+      args: ['--disable-setuid-sandbox', '--no-sandbox', '--disable-dev-shm-usage'],
     });
     return browser;
   } catch (err) {
