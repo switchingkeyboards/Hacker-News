@@ -1,32 +1,44 @@
-import Link from 'next/link'
+import React from 'react';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import queryGraphql from '../shared/query-graphql';
+import CustomAppBar from './components/CustomAppBar';
+import NewsCard from './components/NewsCard';
+import Grid from '@material-ui/core/Grid';
 
-import queryGraphql from '../shared/query-graphql'
-
-export default function UserListing({ users }) {
+export default function App({ news }) {
   return (
-    <div>
-      <h1>User Listing</h1>
-      <ul>
-        {users.map((user) => (
-          <li key={user.username}>
-            <Link href="/[username]" as={`/${user.username}`}>
-              <a>{user.name}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
+    <>
+      <CustomAppBar />
+      <Container>
+        <Box>
+          <Grid container spacing={3}>
+            {news.map((newsItem, i) => {
+              return (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                  <NewsCard {...newsItem} />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+      </Container>
+    </>
+  );
 }
 
 export async function getStaticProps() {
-  const { users } = await queryGraphql(`
+  const { news } = await queryGraphql(`
     query {
-      users {
-        name
-        username
+      news {
+        title
+        points
+        author
+        time
+        link
+        commentsCount
       }
     }
-  `)
-  return { props: { users } }
+  `);
+  return { props: { news } };
 }

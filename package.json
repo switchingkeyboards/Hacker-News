@@ -1,5 +1,5 @@
 {
-  "name": "api-routes-apollo-server",
+  "name": "hacker-news",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
@@ -8,11 +8,20 @@
     "start": "next start"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "apollo-server-micro": "2.13.1",
     "graphql": "15.0.0",
     "next": "latest",
+    "puppeteer": "^5.3.1",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "prettier": "^2.1.2"
+  }
 }

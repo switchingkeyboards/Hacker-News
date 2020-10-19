@@ -1,39 +1,38 @@
-import { ApolloServer, gql, makeExecutableSchema } from 'apollo-server-micro'
+import { ApolloServer, gql, makeExecutableSchema } from 'apollo-server-micro';
+import scraper from './scraper';
 
 const typeDefs = gql`
   type Query {
-    users: [User!]!
-    user(username: String): User
+    news: [News!]!
   }
-  type User {
-    name: String
-    username: String
+  type News {
+    title: String
+    points: String
+    author: String
+    time: String
+    commentsCount: Int
+    link: String
   }
-`
-const users = [
-  { name: 'Leeroy Jenkins', username: 'leeroy' },
-  { name: 'Foo Bar', username: 'foobar' },
-]
+`;
 
 const resolvers = {
   Query: {
-    users() {
-      return users
-    },
-    user(parent, { username }) {
-      return users.find((user) => user.username === username)
+    async news() {
+      const news = await scraper();
+      console.log(news);
+      return news;
     },
   },
-}
+};
 
-export const schema = makeExecutableSchema({ typeDefs, resolvers })
+export const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 export const config = {
   api: {
     bodyParser: false,
   },
-}
+};
 
 export default new ApolloServer({ schema }).createHandler({
   path: '/api/graphql',
-})
+});
