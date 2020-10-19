@@ -27,7 +27,7 @@ export default function App({ news }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { news } = await queryGraphql(`
     query {
       news {
