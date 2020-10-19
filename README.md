@@ -42,3 +42,4 @@ type News {
 - Refactor API for more robust and efficient scraping
 - Lazy loading/scroll or pagination
 - Improve layout, e.g. list view
+- Auto-refresh of content
