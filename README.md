@@ -1,4 +1,4 @@
-# Hacker News ([Demo URL](https://hacker-news-26qns3y7f.vercel.app))
+# Hacker News
 
 This is an MVP demonstrating the scraping and displaying of data from Hacker News through Apollo GraphQL and React. This project is bootstraped with `create-next-app`.
 
