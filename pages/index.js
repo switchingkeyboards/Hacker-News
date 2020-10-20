@@ -42,10 +42,14 @@ const NEWS_QUERY = /* GraphQL */ `
   }
 `;
 
-export async function getServerSideProps() {
-  console.log('Getting server side props...');
+export async function getStaticProps() {
+  console.log('Getting static props...');
   const { news } = await queryGraphql(NEWS_QUERY);
   return {
     props: { news },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every second
+    revalidate: 1,
   };
 }
