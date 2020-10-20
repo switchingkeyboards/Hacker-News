@@ -44,6 +44,6 @@ const NEWS_QUERY = /* GraphQL */ `
 export async function getServerSideProps() {
   const { news } = await queryGraphql(NEWS_QUERY);
   return {
-    props: { news },
+    props: { news: news || null },
   };
 }
