@@ -13,13 +13,14 @@ export default function App({ news }) {
       <Container>
         <Box>
           <Grid container spacing={3}>
-            {news.map((newsItem, i) => {
-              return (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
-                  <NewsCard {...newsItem} />
-                </Grid>
-              );
-            })}
+            {isIterableArray(news) &&
+              news.map((newsItem, i) => {
+                return (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                    <NewsCard {...newsItem} />
+                  </Grid>
+                );
+              })}
           </Grid>
         </Box>
       </Container>
