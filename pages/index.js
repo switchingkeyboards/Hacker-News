@@ -5,6 +5,7 @@ import queryGraphql from '../shared/query-graphql';
 import CustomAppBar from './components/CustomAppBar';
 import NewsCard from './components/NewsCard';
 import Grid from '@material-ui/core/Grid';
+import { isIterableArray } from '../src/helpers';
 
 export default function App({ news }) {
   return (
