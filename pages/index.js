@@ -5,6 +5,10 @@ import queryGraphql from '../shared/query-graphql';
 import CustomAppBar from './components/CustomAppBar';
 import NewsCard from './components/NewsCard';
 import Grid from '@material-ui/core/Grid';
+import { request } from 'graphql-request';
+import useSWR from 'swr';
+
+const fetcher = (query) => request('/', query);
 
 export default function App({ news }) {
   return (
@@ -27,7 +31,7 @@ export default function App({ news }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const { news } = await queryGraphql(`
     query {
       news {
@@ -42,9 +46,5 @@ export async function getStaticProps() {
   `);
   return {
     props: { news },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every second
-    revalidate: 1, // In seconds;
   };
 }
