@@ -8,28 +8,26 @@ import Grid from '@material-ui/core/Grid';
 
 export default function App({ news }) {
   return (
-    news && (
-      <>
-        <CustomAppBar />
-        <Container>
-          <Box>
-            <Grid container spacing={3}>
-              {news.map((newsItem, i) => {
-                return (
-                  <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
-                    <NewsCard {...newsItem} />
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Box>
-        </Container>
-      </>
-    )
+    <>
+      <CustomAppBar />
+      <Container>
+        <Box>
+          <Grid container spacing={3}>
+            {news.map((newsItem, i) => {
+              return (
+                <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                  <NewsCard {...newsItem} />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+      </Container>
+    </>
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const { news } = await queryGraphql(`
     query {
       news {
@@ -42,5 +40,11 @@ export async function getServerSideProps() {
       }
     }
   `);
-  return { props: { news } };
+  return {
+    props: { news },
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every second
+    revalidate: 1, // In seconds;
+  };
 }

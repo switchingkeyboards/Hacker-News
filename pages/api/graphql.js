@@ -19,7 +19,6 @@ const resolvers = {
   Query: {
     async news() {
       const news = await scraper();
-      console.log(news);
       return news;
     },
   },
