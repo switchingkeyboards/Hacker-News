@@ -1,12 +1,11 @@
 import React from 'react';
-import queryGraphql from '../shared/query-graphql';
-
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-
+import queryGraphql from '../shared/query-graphql';
 import CustomAppBar from './components/CustomAppBar';
 import NewsCard from './components/NewsCard';
+import Grid from '@material-ui/core/Grid';
+import useSWR from 'swr';
 
 export default function App({ news }) {
   return (
@@ -29,19 +28,21 @@ export default function App({ news }) {
   );
 }
 
-export async function getServerSideProps() {
-  const { news } = await queryGraphql(`
-    query {
-      news {
-        title
-        points
-        author
-        time
-        link
-        commentsCount
-      }
+const NEWS_QUERY = /* GraphQL */ `
+  query {
+    news {
+      title
+      points
+      author
+      time
+      link
+      commentsCount
     }
-  `);
+  }
+`;
+
+export async function getServerSideProps() {
+  const { news } = await queryGraphql(NEWS_QUERY);
   return {
     props: { news },
   };
